@@ -13,8 +13,8 @@ const bio = {
     mobile: '(111)867-5309',
     email: 'ksekstrand@gmail.com',
     github: 'ksekstrand',
-    blog: '',
-    twitter: '',
+    blog: 'no blog',
+    twitter: 'notwitter',
     location: 'USA'
   },
   welcomeMessage: "Hello Friends, this is my welcome message!",
@@ -23,7 +23,7 @@ const bio = {
     skill2: 'eating peanut butter',
     skill3: 'bumping into coffee tables'
   },
-  biopic: "http://idonthaveabiopic.com",
+  biopic: "I'm Kyle",
   display: () => {
 
   }
@@ -58,7 +58,7 @@ const jobs = {
       title: "Software Developer and Integrator II",
       location: "San Antonio, TX",
       dates: "2015-Current",
-      description: "I write code on the mainframe (primaily C++ / Q++ code running on CICS transactions on the z/os platform), java tier (RESTful JAX-RS web services and Wicket), and the UI occassionally."
+      description: "I write code."
     },
     job2: {
       employer: "Northern Air Cargo",
@@ -103,8 +103,6 @@ End JS objects area
 /*
 Insert the resume info into page
 */
-let currentSection;
-console.log(sectionHolder);
 
 function dataReplace(inputHtml, value) {
   dataReplaceWithOptionalSelector(inputHtml, value, null)
@@ -115,7 +113,7 @@ function dataReplaceWithOptionalSelector(inputHtml, value, selector){
   if(selector && (!inputHtml || !value || value === null || inputHtml === null))
     console.log("null!");
 
-  let oldText = inputHtml.text();
+  let oldText = inputHtml;
   let newText;
   if(!selector){
     newText = oldText.replace('%data%',value);
@@ -124,6 +122,27 @@ function dataReplaceWithOptionalSelector(inputHtml, value, selector){
     newText = oldText.replace(selector,value);
   }
   return newText;
+}
+
+function dataReplaceAndKeepOriginal(inputHTML, value){
+  var text = inputHTML;
+  text = text.replace('%data%',value);
+  return text;
+}
+
+function dataReplaceCollection(htmlInstance,collection){
+  let temp;
+  $.each(collection, function(key, value){
+    if (!temp){
+      temp = dataReplaceAndKeepOriginal(htmlInstance, value);
+      console.log(value);
+    }
+    else {
+      temp += dataReplaceAndKeepOriginal(htmlInstance, value);
+      console.log(value);
+    }
+  });
+  return temp;
 }
 
 function prependResumeElement(pageId, element){

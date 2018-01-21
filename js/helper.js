@@ -13,41 +13,20 @@ These are HTML strings. As part of the course, you'll be using JavaScript functi
 replace the %data% placeholder text you see in them.
 */
 
-
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
-HTMLheaderName = dataReplace(HTMLheaderName, bio.name);
-appendResumeElement("#topContacts", HTMLheaderName)
 var HTMLheaderRole = '<span>%data%</span><hr>';
-HTMLheaderRole = dataReplace(HTMLheaderRole, bio.role);
-var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
-// HTMLcontactGeneric = function(){
-//   $.each(bio.contacts)
-//     dataReplace(HTMLcontactGeneric, bio.contact);
-//   }
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
-HTMLmobile = dataReplace(HTMLmobile, bio.contacts.mobile);
 var HTMLemail = '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>';
-HTMLemail = dataReplace(HTMLemail, bio.contacts.email);
 var HTMLtwitter = '<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>';
-HTMLtwitter = dataReplace(HTMLtwitter, bio.contacts.twitter);
 var HTMLgithub = '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>';
-HTMLgithub = dataReplace(HTMLgithub, bio.contacts.github);
 var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
-HTMLblog = dataReplace(HTMLblog, bio.contacts.blog);
 var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
-HTMLlocation = dataReplace(HTMLlocation, bio.contacts.location);
 var HTMLbiopic = '<img src="%data%" class="biopic">';
-HTMLbioPic = dataReplace(HTMLbiopic, 'images/fry.jpg');
+
 var HTMLwelcomeMsg = '<span class="welcome-message">%data%</span>';
-HTMLwelcomeMsg = dataReplace(HTMLwelcomeMsg, bio.welcomeMessage);
-
 var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills" class="flex-column"></ul>';
-
 var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
 
-HTMLskills = dataReplaceCollection(HTMLskills, bio.skills);
-
-let WorkCollection = [];
 var HTMLworkStart = '<div class="work-entry"></div>';
 var HTMLworkEmployer = '<a href="#">%data%';
 var HTMLworkTitle = ' - %data%</a>';
@@ -55,51 +34,23 @@ var HTMLworkDates = '<div class="date-text">%data%</div>';
 var HTMLworkLocation = '<div class="location-text">%data%</div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
 
-$.each(jobs.jobList, function(key, value){
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkEmployer, value.employer));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkDates, value.dates));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkLocation, value.location));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkTitle, value.title));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkDescription, value.description));
-});
-
-let projectCollection = [];
 var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
 var HTMLprojectImage = '<img src="%data%">';
 
-$.each(projects.projectList, function(key, value){
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectTitle, value.title));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectDates, value.dates));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectImage, value.images));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectDescription, value.description));
-});
-
-console.log(projectCollection);
-
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
-dataReplace(HTMLschoolName, education.schools.name);
 var HTMLschoolDegree = ' -- %data%</a>';
-dataReplace(HTMLschoolDegree, education.schools.degree);
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
-dataReplace(HTMLschoolDates, education.schools.dates);
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
-dataReplace(HTMLschoolLocation, education.schools.location);
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
-dataReplace(HTMLschoolMajor, education.schools.majors)
-
-var HTMLonlineClasses = '<h3>Online Classes</h3>';
+var HTMLonlineClasses = '<h3 id="onlineCourses">Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
-dataReplace(HTMLonlineTitle, education.onlineCourses.title);
 var HTMLonlineSchool = ' - %data%</a>';
-dataReplace(HTMLonlineSchool, education.onlineCourses.school);
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
-dataReplace(HTMLonlineDates, education.onlineCourses.dates);
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
-dataReplace(HTMLonlineURL, education.onlineCourses.url);
 
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
@@ -107,7 +58,34 @@ var googleMap = '<div id="map"></div>';
 /*
 Insert data into placeholders
 */
+$(document).ready(function(){
+  bio.display();
+  education.display();
+  jobs.display();
+  projects.display();
 
+  if(document.getElementsByClassName('flex-item').length === 0) {
+    document.getElementById('topContacts').style.display = 'none';
+  }
+  if(document.getElementsByTagName('h1').length === 0) {
+    document.getElementById('header').style.display = 'none';
+  }
+  if(document.getElementsByClassName('work-entry').length === 0) {
+    document.getElementById('workExperience').style.display = 'none';
+  }
+  if(document.getElementsByClassName('project-entry').length === 0) {
+    document.getElementById('projects').style.display = 'none';
+  }
+  if(document.getElementsByClassName('education-entry').length === 0) {
+    document.getElementById('education').style.display = 'none';
+  }
+  if(document.getElementsByClassName('flex-item').length === 0) {
+    document.getElementById('lets-connect').style.display = 'none';
+  }
+  if(document.getElementById('map') === null) {
+    document.getElementById('mapDiv').style.display = 'none';
+  }
+});
 
 
 /*

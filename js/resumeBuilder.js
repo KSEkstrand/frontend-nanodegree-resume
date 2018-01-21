@@ -5,7 +5,6 @@ Build the page
  /*
  Begin JS objects area
  */
-let sectionHolder = [];
 const bio = {
   name : "Kyle Ekstrand",
   role : "Guy who codes things",
@@ -23,18 +22,40 @@ const bio = {
     skill2: 'eating peanut butter',
     skill3: 'bumping into coffee tables'
   },
-  biopic: "I'm Kyle",
+  biopic: "images\fry.jpg",
   display: () => {
+    HTMLheaderName = dataReplace(HTMLheaderName, bio.name);
+    HTMLheaderRole = dataReplace(HTMLheaderRole, bio.role);
+    HTMLmobile = dataReplace(HTMLmobile, bio.contacts.mobile);
+    HTMLtwitter = dataReplace(HTMLtwitter, bio.contacts.twitter);
+    HTMLgithub = dataReplace(HTMLgithub, bio.contacts.github);
+    HTMLemail = dataReplace(HTMLemail, bio.contacts.email);
+    HTMLblog = dataReplace(HTMLblog, bio.contacts.blog);
+    HTMLlocation = dataReplace(HTMLlocation, bio.contacts.location);
+    HTMLbioPic = dataReplace(HTMLbiopic, 'images/fry.jpg');
+    HTMLwelcomeMsg = dataReplace(HTMLwelcomeMsg, bio.welcomeMessage);
+    HTMLskills = dataReplaceCollection(HTMLskills, bio.skills);
 
+    $('#header').append(HTMLbioPic);
+    $('#header').append(HTMLwelcomeMsg);
+    $('#header').append(HTMLskillsStart);
+    $('#header').append(HTMLskills);
+    $('#topContacts').before(HTMLheaderName);
+    $('#topContacts').before(HTMLheaderRole);
+    $('#topContacts').append(HTMLmobile);
+    $('#topContacts').append(HTMLemail);
+    // $('#topContacts').append(HTMLtwitter);
+    $('#topContacts').append(HTMLgithub);
+    // $('#topContacts').append(HTMLblog);
+    $('#topContacts').append(HTMLlocation);
   }
 }
-sectionHolder.push(bio);
 
 const education = {
   schools: {
      name: "Univesity of Alaska Anchorage",
      location: "Anchorage, AK",
-     degree: "Management Information Systems",
+     degree: "B.B.A.",
      majors: "Economics, Management Information Systems",
      dates: "2008-2015",
      url: "https://www.uaa.alaska.edu"
@@ -46,10 +67,28 @@ const education = {
        url: "https://udacity.com"
      },
      display: () => {
+       HTMLschoolDegree=dataReplace(HTMLschoolDegree, education.schools.degree);
+       HTMLschoolDates=dataReplace(HTMLschoolDates, education.schools.dates);
+       HTMLschoolLocation=dataReplace(HTMLschoolLocation, education.schools.location);
+       HTMLschoolName=dataReplace(HTMLschoolName, education.schools.name);
+       HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors)
+       HTMLonlineTitle=dataReplace(HTMLonlineTitle, education.onlineCourses.title);
+       HTMLonlineSchool=dataReplace(HTMLonlineSchool, education.onlineCourses.school);
+       HTMLonlineDates=dataReplace(HTMLonlineDates, education.onlineCourses.dates);
+       HTMLonlineURL=dataReplace(HTMLonlineURL, education.onlineCourses.url);
 
+       $('#education').append(HTMLschoolStart);
+       $('.education-entry').append(HTMLschoolName + HTMLschoolDegree);
+       $('.education-entry').append(HTMLschoolDates);
+       $('.education-entry').append(HTMLschoolMajor);
+       $('.education-entry').append(HTMLschoolLocation);
+
+       $('#education').append(HTMLonlineClasses);
+       $('#onlineCourses').append(HTMLonlineTitle + HTMLonlineSchool);
+       $('#onlineCourses').append(HTMLonlineDates);
+       $('#onlineCourses').append(HTMLonlineURL);
   }
 }
-sectionHolder.push(education);
 
 const jobs = {
   jobList:{
@@ -69,31 +108,49 @@ const jobs = {
     }
   },
   display: () => {
-
+    $('#workExperience').after(HTMLworkStart);
+    $.each(jobs.jobList, function(key, value){
+      var link = dataReplaceAndKeepOriginal(HTMLworkEmployer, value.employer) +
+      dataReplaceAndKeepOriginal(HTMLworkTitle, value.title);
+      $('.work-entry').append(link);
+      $('.work-entry').append((dataReplaceAndKeepOriginal(HTMLworkDates, value.dates)));
+      $('.work-entry').append((dataReplaceAndKeepOriginal(HTMLworkLocation, value.location)));
+      $('.work-entry').append((dataReplaceAndKeepOriginal(HTMLworkDescription, value.description)));
+    });
   }
 }
-sectionHolder.push(jobs);
 
 const projects = {
   projectList: {
     project1:{
       title: "this project",
       dates: "12-12-1912",
-      description: "this project",
+      description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
       images: ""
     },
     project2:{
       title: "that project",
       dates: "13-13-1913",
-      description: "that project",
+      description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
       images: ""
     }
   },
   display: () =>  {
-
+    let count = 0;
+    $.each(projects.projectList, function(key, value){
+      var projectIteratorId = "project" + count;
+      var loc = HTMLprojectStart.lastIndexOf("class");
+      var newHtmlProjectStart = HTMLprojectStart.slice(0,loc) +
+        "id=\""+projectIteratorId +"\" " + HTMLprojectStart.slice(loc);
+      $('#projects').append(newHtmlProjectStart);
+      $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectTitle, value.title));
+      $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectDates, value.dates));
+      // $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectImage, value.images));
+      $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectDescription, value.description));
+      count++;
+    });
   }
 }
-sectionHolder.push(projects);
 
 /*
 End JS objects area
@@ -104,11 +161,11 @@ End JS objects area
 Insert the resume info into page
 */
 
-function dataReplace(inputHtml, value) {
-  dataReplaceWithOptionalSelector(inputHtml, value, null)
+var dataReplace = function(inputHtml, value) {
+  return dataReplaceWithOptionalSelector(inputHtml, value, null);
 }
 
-function dataReplaceWithOptionalSelector(inputHtml, value, selector){
+var dataReplaceWithOptionalSelector = function(inputHtml, value, selector){
   //null check, ES6 null check
   if(selector && (!inputHtml || !value || value === null || inputHtml === null))
     console.log("null!");
@@ -135,11 +192,9 @@ function dataReplaceCollection(htmlInstance,collection){
   $.each(collection, function(key, value){
     if (!temp){
       temp = dataReplaceAndKeepOriginal(htmlInstance, value);
-      console.log(value);
     }
     else {
       temp += dataReplaceAndKeepOriginal(htmlInstance, value);
-      console.log(value);
     }
   });
   return temp;
@@ -150,5 +205,5 @@ function prependResumeElement(pageId, element){
 }
 
 function appendResumeElement(pageId, element){
-  $(pageId).append(element);
+  $(pageId).after(element);
 }

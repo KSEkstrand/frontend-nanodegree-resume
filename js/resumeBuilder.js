@@ -199,11 +199,3 @@ function dataReplaceCollection(htmlInstance,collection){
   });
   return temp;
 }
-
-function prependResumeElement(pageId, element){
-  $(pageId).prepend(element);
-}
-
-function appendResumeElement(pageId, element){
-  $(pageId).after(element);
-}

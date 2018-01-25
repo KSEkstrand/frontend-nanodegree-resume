@@ -16,7 +16,7 @@ replace the %data% placeholder text you see in them.
 
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
 HTMLheaderName = dataReplace(HTMLheaderName, bio.name);
-appendResumeElement("#topContacts", HTMLheaderName)
+appendResumeElement("#topContacts", HTMLheaderName);
 var HTMLheaderRole = '<span>%data%</span><hr>';
 HTMLheaderRole = dataReplace(HTMLheaderRole, bio.role);
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
@@ -90,7 +90,7 @@ dataReplace(HTMLschoolDates, education.schools.dates);
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
 dataReplace(HTMLschoolLocation, education.schools.location);
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
-dataReplace(HTMLschoolMajor, education.schools.majors)
+dataReplace(HTMLschoolMajor, education.schools.majors);
 
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';

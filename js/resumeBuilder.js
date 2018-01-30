@@ -49,7 +49,7 @@ const bio = {
     // $('#topContacts').append(HTMLblog);
     $('#topContacts').append(HTMLlocation);
   }
-}
+};
 
 const education = {
   schools: {
@@ -71,7 +71,7 @@ const education = {
        HTMLschoolDates=dataReplace(HTMLschoolDates, education.schools.dates);
        HTMLschoolLocation=dataReplace(HTMLschoolLocation, education.schools.location);
        HTMLschoolName=dataReplace(HTMLschoolName, education.schools.name);
-       HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors)
+       HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors);
        HTMLonlineTitle=dataReplace(HTMLonlineTitle, education.onlineCourses.title);
        HTMLonlineSchool=dataReplace(HTMLonlineSchool, education.onlineCourses.school);
        HTMLonlineDates=dataReplace(HTMLonlineDates, education.onlineCourses.dates);
@@ -88,7 +88,7 @@ const education = {
        $('#onlineCourses').append(HTMLonlineDates);
        $('#onlineCourses').append(HTMLonlineURL);
   }
-}
+};
 
 const jobs = {
   jobList:{
@@ -118,7 +118,7 @@ const jobs = {
       $('.work-entry').append((dataReplaceAndKeepOriginal(HTMLworkDescription, value.description)));
     });
   }
-}
+};
 
 const projects = {
   projectList: {
@@ -150,7 +150,7 @@ const projects = {
       count++;
     });
   }
-}
+};
 
 /*
 End JS objects area
@@ -161,14 +161,22 @@ End JS objects area
 Insert the resume info into page
 */
 
-var dataReplace = function(inputHtml, value) {
+ dataReplace = function(inputHtml, value) {
   return dataReplaceWithOptionalSelector(inputHtml, value, null);
+};
+
+function dataReplaceAndKeepOriginal(inputHTML, value){
+  var text = inputHTML;
+  text = text.replace('%data%',value);
+  return text;
 }
 
-var dataReplaceWithOptionalSelector = function(inputHtml, value, selector){
+ dataReplaceWithOptionalSelector = function(inputHtml, value, selector){
   //null check, ES6 null check
   if(selector && (!inputHtml || !value || value === null || inputHtml === null))
+  {
     console.log("null!");
+  }
 
   let oldText = inputHtml;
   let newText;
@@ -179,13 +187,9 @@ var dataReplaceWithOptionalSelector = function(inputHtml, value, selector){
     newText = oldText.replace(selector,value);
   }
   return newText;
-}
+};
 
-function dataReplaceAndKeepOriginal(inputHTML, value){
-  var text = inputHTML;
-  text = text.replace('%data%',value);
-  return text;
-}
+
 
 function dataReplaceCollection(htmlInstance,collection){
   let temp;

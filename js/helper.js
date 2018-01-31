@@ -12,43 +12,23 @@ Cameron Pittman
 These are HTML strings. As part of the course, you'll be using JavaScript functions
 replace the %data% placeholder text you see in them.
 */
-
-
 var HTMLheaderName = '<h1 id="name">%data%</h1>';
-HTMLheaderName = dataReplace(HTMLheaderName, bio.name);
-appendResumeElement("#topContacts", HTMLheaderName);
 var HTMLheaderRole = '<span>%data%</span><hr>';
-HTMLheaderRole = dataReplace(HTMLheaderRole, bio.role);
+
 var HTMLcontactGeneric = '<li class="flex-item"><span class="orange-text">%contact%</span><span class="white-text">%data%</span></li>';
-// HTMLcontactGeneric = function(){
-//   $.each(bio.contacts)
-//     dataReplace(HTMLcontactGeneric, bio.contact);
-//   }
-
 var HTMLmobile = '<li class="flex-item"><span class="orange-text">mobile</span><span class="white-text">%data%</span></li>';
-HTMLmobile = dataReplace(HTMLmobile, bio.contacts.mobile);
 var HTMLemail = '<li class="flex-item"><span class="orange-text">email</span><span class="white-text">%data%</span></li>';
-HTMLemail = dataReplace(HTMLemail, bio.contacts.email);
 var HTMLtwitter = '<li class="flex-item"><span class="orange-text">twitter</span><span class="white-text">%data%</span></li>';
-HTMLtwitter = dataReplace(HTMLtwitter, bio.contacts.twitter);
 var HTMLgithub = '<li class="flex-item"><span class="orange-text">github</span><span class="white-text">%data%</span></li>';
-HTMLgithub = dataReplace(HTMLgithub, bio.contacts.github);
 var HTMLblog = '<li class="flex-item"><span class="orange-text">blog</span><span class="white-text">%data%</span></li>';
-HTMLblog = dataReplace(HTMLblog, bio.contacts.blog);
 var HTMLlocation = '<li class="flex-item"><span class="orange-text">location</span><span class="white-text">%data%</span></li>';
-HTMLlocation = dataReplace(HTMLlocation, bio.contacts.location);
-var HTMLbiopic = '<img src="%data%" class="biopic">';
-HTMLbioPic = dataReplace(HTMLbiopic, 'images/fry.jpg');
+
+var HTMLbioPic = '<img src="%data%" class="biopic">';
 var HTMLwelcomeMsg = '<span class="welcome-message">%data%</span>';
-HTMLwelcomeMsg = dataReplace(HTMLwelcomeMsg, bio.welcomeMessage);
 
-var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills" class="flex-column"></ul>';
-
+var HTMLskillsStart = '<h3 id="skills-h3">Skills at a Glance:</h3><ul id="skills" class="flex-box"></ul>';
 var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
 
-HTMLskills = dataReplaceCollection(HTMLskills, bio.skills);
-
-let WorkCollection = [];
 var HTMLworkStart = '<div class="work-entry"></div>';
 var HTMLworkEmployer = '<a href="#">%data%';
 var HTMLworkTitle = ' - %data%</a>';
@@ -56,64 +36,27 @@ var HTMLworkDates = '<div class="date-text">%data%</div>';
 var HTMLworkLocation = '<div class="location-text">%data%</div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
 
-$.each(jobs.jobList, function(key, value){
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkEmployer, value.employer));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkDates, value.dates));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkLocation, value.location));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkTitle, value.title));
-    WorkCollection.push(dataReplaceAndKeepOriginal(HTMLworkDescription, value.description));
-});
-
-let projectCollection = [];
 var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
 var HTMLprojectImage = '<img src="%data%">';
 
-$.each(projects.projectList, function(key, value){
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectTitle, value.title));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectDates, value.dates));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectImage, value.images));
-    projectCollection.push(dataReplaceAndKeepOriginal(HTMLprojectDescription, value.description));
-});
-
-console.log(projectCollection);
-
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
-dataReplace(HTMLschoolName, education.schools.name);
 var HTMLschoolDegree = ' -- %data%</a>';
-dataReplace(HTMLschoolDegree, education.schools.degree);
 var HTMLschoolDates = '<div class="date-text">%data%</div>';
-dataReplace(HTMLschoolDates, education.schools.dates);
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
-dataReplace(HTMLschoolLocation, education.schools.location);
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
-dataReplace(HTMLschoolMajor, education.schools.majors);
 
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
-dataReplace(HTMLonlineTitle, education.onlineCourses.title);
 var HTMLonlineSchool = ' - %data%</a>';
-dataReplace(HTMLonlineSchool, education.onlineCourses.school);
 var HTMLonlineDates = '<div class="date-text">%data%</div>';
-dataReplace(HTMLonlineDates, education.onlineCourses.dates);
 var HTMLonlineURL = '<br><a href="#">%data%</a>';
-dataReplace(HTMLonlineURL, education.onlineCourses.url);
 
 var internationalizeButton = '<button>Internationalize</button>';
 var googleMap = '<div id="map"></div>';
-
-/*
-Insert data into placeholders
-*/
-
-
-
-/*
-End insert datas
-*/
 
 
 /*
@@ -121,18 +64,15 @@ The Internationalize Names challenge found in the lesson Flow Control from JavaS
 */
 $(document).ready(function() {
   $('button').click(function() {
-    var $name = $('#name');
-    var iName = inName($name.text()) || function(){
-
-    };
-    $name.html(iName);
+    var iName = inName() || function(){};
+    $('#name').html(iName);
   });
 });
 
 /*
 The next few lines about clicks are for the Collecting Click Locations quiz in the lesson Flow Control from JavaScript Basics.
 */
-var clickLocations = [];
+clickLocations = [];
 
 function logClicks(x,y) {
   clickLocations.push(
@@ -173,8 +113,7 @@ function initializeMap() {
   For the map to be displayed, the googleMap var must be
   appended to #mapDiv in resumeBuilder.js.
   */
-  map = new google.maps.Map(document.querySelector('#mapDiv'), mapOptions);
-  $('#mapDiv').append(map);
+  map = new google.maps.Map(document.querySelector('#map'), mapOptions);
 
 
   /*
@@ -193,22 +132,18 @@ function initializeMap() {
     // the locations array. Note that forEach is used for array iteration
     // as described in the Udacity FEND Style Guide:
     // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
-    if(education.schools instanceof Array){
-      education.schools.forEach(function(school){
-        locations.push(school.location);
-      });
-    }
-    else {
-      locations.push(education.schools.location);
-    }
+    education.schools.forEach(function(school){
+      locations.push(school.location);
+    });
 
     // iterates through work locations and appends each location to
     // the locations array. Note that forEach is used for array iteration
     // as described in the Udacity FEND Style Guide:
     // https://udacity.github.io/frontend-nanodegree-styleguide/javascript.html#for-in-loop
-    $.each(jobs.jobList, function(key,job){
+    work.jobs.forEach(function(job){
       locations.push(job.location);
     });
+
     return locations;
   }
 
@@ -303,11 +238,11 @@ Uncomment the code below when you're ready to implement a Google Map!
 */
 
 // Calls the initializeMap() function when the page loads
-window.addEventListener('load', initializeMap);
+//window.addEventListener('load', initializeMap);
 
 // Vanilla JS way to listen for resizing of the window
 // and adjust map bounds
-window.addEventListener('resize', function(e) {
+//window.addEventListener('resize', function(e) {
   //Make sure the map bounds get updated on page resize
- map.fitBounds(mapBounds);
-});
+//  map.fitBounds(mapBounds);
+//});

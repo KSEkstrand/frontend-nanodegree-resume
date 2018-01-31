@@ -192,8 +192,6 @@ function dataReplaceAndKeepOriginal(inputHTML, value){
   return newText;
 };
 
-
-
 function dataReplaceCollection(htmlInstance,collection){
   let temp;
   $.each(collection, function(key, value){

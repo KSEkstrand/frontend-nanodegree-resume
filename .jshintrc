@@ -7,7 +7,7 @@
     "after"      : false,
     "afterEach"  : false
   },
-  "camelcase": true,
+  "camelcase": false,
   "curly": true,
   "eqeqeq": true,
   "freeze": true,
@@ -17,7 +17,6 @@
   "node": true,
   "trailing": true,
   "strict": false,
-  "unused": "vars",
   "undef": false,
   "esversion" : 6
 }

@@ -40,6 +40,7 @@ const bio = {
     $('#header').append(HTMLwelcomeMsg);
     $('#header').append(HTMLskillsStart);
     $('#header').append(HTMLskills);
+
     $('#topContacts').before(HTMLheaderName);
     $('#topContacts').before(HTMLheaderRole);
     $('#topContacts').append(HTMLmobile);
@@ -48,6 +49,11 @@ const bio = {
     $('#topContacts').append(HTMLgithub);
     // $('#topContacts').append(HTMLblog);
     $('#topContacts').append(HTMLlocation);
+
+    $('#footerContacts').append(HTMLmobile);
+    $('#footerContacts').append(HTMLemail);
+    $('#footerContacts').append(HTMLgithub);
+    $('#footerContacts').append(HTMLlocation);
   }
 };
 

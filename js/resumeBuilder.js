@@ -32,7 +32,7 @@ const bio = {
     HTMLemail = dataReplace(HTMLemail, bio.contacts.email);
     HTMLblog = dataReplace(HTMLblog, bio.contacts.blog);
     HTMLlocation = dataReplace(HTMLlocation, bio.contacts.location);
-    HTMLbioPic = dataReplace(HTMLbiopic, 'images/fry.jpg');
+    HTMLbioPic = dataReplace(HTMLbioPic, 'images/fry.jpg');
     HTMLwelcomeMsg = dataReplace(HTMLwelcomeMsg, bio.welcomeMessage);
     HTMLskills = dataReplaceCollection(HTMLskills, bio.skills);
 
@@ -52,64 +52,67 @@ const bio = {
 };
 
 const education = {
-  schools: {
+  schools: [{
      name: "Univesity of Alaska Anchorage",
      location: "Anchorage, AK",
      degree: "B.B.A.",
      majors: "Economics, Management Information Systems",
      dates: "2008-2015",
      url: "https://www.uaa.alaska.edu"
-   },
-  onlineCourses: {
+   }],
+   onlineCourses: {
        title: "Udacity Front End Developer",
        school: "Udacity",
        dates: "2016-2017",
        url: "https://udacity.com"
      },
      display: () => {
-       HTMLschoolDegree=dataReplace(HTMLschoolDegree, education.schools.degree);
-       HTMLschoolDates=dataReplace(HTMLschoolDates, education.schools.dates);
-       HTMLschoolLocation=dataReplace(HTMLschoolLocation, education.schools.location);
-       HTMLschoolName=dataReplace(HTMLschoolName, education.schools.name);
-       HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors);
+
+
+       // HTMLschoolDegree=dataReplace(HTMLschoolDegree, education.schools.degree);
+       // HTMLschoolDates=dataReplace(HTMLschoolDates, education.schools.dates);
+       // HTMLschoolLocation=dataReplace(HTMLschoolLocation, education.schools.location);
+       // HTMLschoolName=dataReplace(HTMLschoolName, education.schools.name);
+       // HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors);
+       $('#education').append(HTMLschoolStart);
+       $.each(education.schools, function(key, value){
+        $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolName, value.name) +
+          dataReplaceAndKeepOriginal(HTMLschoolDegree, value.degree));
+        $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolLocation, value.location));
+        $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolDates, value.dates));
+        $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolMajor, value.majors));
+       });
+
        HTMLonlineTitle=dataReplace(HTMLonlineTitle, education.onlineCourses.title);
        HTMLonlineSchool=dataReplace(HTMLonlineSchool, education.onlineCourses.school);
        HTMLonlineDates=dataReplace(HTMLonlineDates, education.onlineCourses.dates);
        HTMLonlineURL=dataReplace(HTMLonlineURL, education.onlineCourses.url);
 
-       $('#education').append(HTMLschoolStart);
-       $('.education-entry').append(HTMLschoolName + HTMLschoolDegree);
-       $('.education-entry').append(HTMLschoolDates);
-       $('.education-entry').append(HTMLschoolMajor);
-       $('.education-entry').append(HTMLschoolLocation);
-
        $('#education').append(HTMLonlineClasses);
-       $('#onlineCourses').append(HTMLonlineTitle + HTMLonlineSchool);
-       $('#onlineCourses').append(HTMLonlineDates);
-       $('#onlineCourses').append(HTMLonlineURL);
+       $('#education > h3').append(HTMLonlineTitle + HTMLonlineSchool);
+       $('#education > h3').append(HTMLonlineDates);
+       $('#education > h3').append(HTMLonlineURL);
   }
 };
 
-const jobs = {
-  jobList:{
-    job1:{
+const work = {
+  jobs:[{
       employer: "USAA",
       title: "Software Developer and Integrator II",
       location: "San Antonio, TX",
       dates: "2015-Current",
       description: "I write code."
     },
-    job2: {
+     {
       employer: "Northern Air Cargo",
       title: "Systems Analyst II",
       location: "Anchorage, AK",
       dates: "2014-2015",
       description: "Application administrator and all-around IT problem solver for a variety of functions, including cargo systems, SAP, and inventory management UDA creation",
-    }
-  },
+    }],
   display: () => {
     $('#workExperience').after(HTMLworkStart);
-    $.each(jobs.jobList, function(key, value){
+    $.each(work.jobs, function(key, value){
       var link = dataReplaceAndKeepOriginal(HTMLworkEmployer, value.employer) +
       dataReplaceAndKeepOriginal(HTMLworkTitle, value.title);
       $('.work-entry').append(link);
@@ -161,7 +164,7 @@ End JS objects area
 Insert the resume info into page
 */
 
- dataReplace = function(inputHtml, value) {
+dataReplace = function(inputHtml, value) {
   return dataReplaceWithOptionalSelector(inputHtml, value, null);
 };
 
@@ -203,3 +206,8 @@ function dataReplaceCollection(htmlInstance,collection){
   });
   return temp;
 }
+
+bio.display();
+work.display();
+education.display();
+projects.display();

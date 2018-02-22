@@ -11,7 +11,7 @@ h5,
 h6 {
   padding: 0;
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Roboto", fantasy;
 }
 
 .clear-fix {
@@ -25,9 +25,9 @@ h6 {
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 55px;
   color: #f5a623;
-  line-height: 48px;
+  line-height: 50px;
   display: inline;
 }
 
@@ -124,7 +124,11 @@ a {
 }
 
 .dark-gray {
-  background-color: #4a4a4a;
+  background-color: #4682B4;
+}
+
+#header > li {
+  list-style-type: none;
 }
 
 /* TODO: Replace with image later */

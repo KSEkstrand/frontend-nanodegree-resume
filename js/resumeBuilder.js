@@ -17,11 +17,10 @@ const bio = {
     location: 'USA'
   },
   welcomeMessage: "Hello Friends, this is my welcome message!",
-  skills: [{
-    skill1: 'petting dogs',
-    skill2: 'eating peanut butter',
-    skill3: 'bumping into coffee tables'
-  }],
+  skills: [ 'petting dogs',
+    'eating peanut butter',
+    'bumping into coffee tables'
+  ],
   biopic: "images\fry.jpg",
   display: () => {
     HTMLheaderName = dataReplace(HTMLheaderName, bio.name);

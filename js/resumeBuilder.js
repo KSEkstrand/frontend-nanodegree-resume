@@ -62,9 +62,8 @@ const education = {
      name: "Univesity of Alaska Anchorage",
      location: "Anchorage, AK",
      degree: "B.B.A.",
-     majors: [{
-       major1: "Economics",
-       major2: "Management Information Systems"}],
+     majors: [ "Economics",
+        "Management Information Systems"],
      dates: "2008-2015",
      url: "https://www.uaa.alaska.edu"
    }],
@@ -84,15 +83,14 @@ const education = {
         $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolMajor, value.majors));
        });
 
-       HTMLonlineTitle=dataReplace(HTMLonlineTitle, education.onlineCourses.title);
-       HTMLonlineSchool=dataReplace(HTMLonlineSchool, education.onlineCourses.school);
-       HTMLonlineDates=dataReplace(HTMLonlineDates, education.onlineCourses.dates);
-       HTMLonlineURL=dataReplace(HTMLonlineURL, education.onlineCourses.url);
-
        $('#education').append(HTMLonlineClasses);
-       $('#education > h3').append(HTMLonlineTitle + HTMLonlineSchool);
-       $('#education > h3').append(HTMLonlineDates);
-       $('#education > h3').append(HTMLonlineURL);
+
+       $.each(education.onlineCourses, function(key, value){
+          $('#education > h3').append(dataReplaceAndKeepOriginal(HTMLonlineTitle, value.title) +
+            dataReplaceAndKeepOriginal(HTMLonlineSchool, value.school));
+          $('#education > h3').append(dataReplaceAndKeepOriginal(HTMLonlineDates, value.dates));
+          $('#education > h3').append(dataReplaceAndKeepOriginal(HTMLonlineURL, value.url));
+       });
   }
 };
 
@@ -125,20 +123,20 @@ const work = {
 };
 
 const projects = {
-  projectList: [{
-    project1:{
+  projectList: [
+    {
       title: "this project",
       dates: "12-12-1912",
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
-      images: [{}]
+      images: ""
     },
-    project2:{
+    {
       title: "that project",
       dates: "13-13-1913",
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
       images: ""
     }
-  }],
+  ],
   display: () =>  {
     let count = 0;
     $.each(projects.projectList, function(key, value){

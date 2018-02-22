@@ -17,11 +17,11 @@ const bio = {
     location: 'USA'
   },
   welcomeMessage: "Hello Friends, this is my welcome message!",
-  skills: {
+  skills: [{
     skill1: 'petting dogs',
     skill2: 'eating peanut butter',
     skill3: 'bumping into coffee tables'
-  },
+  }],
   biopic: "images\fry.jpg",
   display: () => {
     HTMLheaderName = dataReplace(HTMLheaderName, bio.name);
@@ -62,24 +62,19 @@ const education = {
      name: "Univesity of Alaska Anchorage",
      location: "Anchorage, AK",
      degree: "B.B.A.",
-     majors: "Economics, Management Information Systems",
+     majors: [{
+       major1: "Economics",
+       major2: "Management Information Systems"}],
      dates: "2008-2015",
      url: "https://www.uaa.alaska.edu"
    }],
-   onlineCourses: {
+   onlineCourses: [{
        title: "Udacity Front End Developer",
        school: "Udacity",
        dates: "2016-2017",
        url: "https://udacity.com"
-     },
+     }],
      display: () => {
-
-
-       // HTMLschoolDegree=dataReplace(HTMLschoolDegree, education.schools.degree);
-       // HTMLschoolDates=dataReplace(HTMLschoolDates, education.schools.dates);
-       // HTMLschoolLocation=dataReplace(HTMLschoolLocation, education.schools.location);
-       // HTMLschoolName=dataReplace(HTMLschoolName, education.schools.name);
-       // HTMLschoolMajor=dataReplace(HTMLschoolMajor, education.schools.majors);
        $('#education').append(HTMLschoolStart);
        $.each(education.schools, function(key, value){
         $('.education-entry').append(dataReplaceAndKeepOriginal(HTMLschoolName, value.name) +
@@ -130,12 +125,12 @@ const work = {
 };
 
 const projects = {
-  projectList: {
+  projectList: [{
     project1:{
       title: "this project",
       dates: "12-12-1912",
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
-      images: ""
+      images: [{}]
     },
     project2:{
       title: "that project",
@@ -143,7 +138,7 @@ const projects = {
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
       images: ""
     }
-  },
+  }],
   display: () =>  {
     let count = 0;
     $.each(projects.projectList, function(key, value){
@@ -200,7 +195,7 @@ function dataReplaceAndKeepOriginal(inputHTML, value){
 
 function dataReplaceCollection(htmlInstance,collection){
   let temp;
-  $.each(collection, function(key, value){
+  collection.forEach(function(value){
     if (!temp){
       temp = dataReplaceAndKeepOriginal(htmlInstance, value);
     }

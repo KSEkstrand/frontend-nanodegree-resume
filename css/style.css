@@ -67,7 +67,7 @@ h5 {
   font-size: 14px;
   color: #999;
   line-height: 16px;
-  float: left;
+  /* float: left; */
 }
 
 .location-text {
@@ -167,8 +167,8 @@ ul {
   display: none;
 }
 
-img {
-  padding: 10px;
+.project-entry > img{
+  width: 200px;
 }
 
 span {
@@ -188,7 +188,7 @@ span {
 }
 
 @media only screen and (max-width:900px) {
-  .biopic {
+  .biopic, .project-entry > img {
     width: 175px;
   }
 }
@@ -197,7 +197,7 @@ span {
   #lets-connect {
     margin-top: 10%;
   }
-  .biopic {
+  .biopic, .project-entry > img {
     width: 150px;
   }
   .welcome-message {
@@ -219,7 +219,7 @@ span {
 
 @media only screen and (min-width: 750px) {
   #skills-h3,
-  .biopic {
+  .biopic, .project-entry > img {
     display: block;
   }
 }

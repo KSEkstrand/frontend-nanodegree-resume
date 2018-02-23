@@ -122,23 +122,23 @@ const work = {
 };
 
 const projects = {
-  projectList: [
+  projects: [
     {
       title: "this project",
       dates: "12-12-1912",
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
-      images: ""
+      images: ["images\\fry.jpg"]
     },
     {
       title: "that project",
       dates: "13-13-1913",
       description: "this project was a project made of things and stuff and other things and stuff and it included things and stuff",
-      images: ""
+      images: ["images\\fry.jpg"]
     }
   ],
   display: () =>  {
     let count = 0;
-    $.each(projects.projectList, function(key, value){
+    $.each(projects.projects, function(key, value){
       var projectIteratorId = "project" + count;
       var loc = HTMLprojectStart.lastIndexOf("class");
       var newHtmlProjectStart = HTMLprojectStart.slice(0,loc) +
@@ -146,7 +146,7 @@ const projects = {
       $('#projects').append(newHtmlProjectStart);
       $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectTitle, value.title));
       $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectDates, value.dates));
-      // $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectImage, value.images));
+      $('#'+projectIteratorId).append(dataReplaceCollection(HTMLprojectImage, value.images));
       $('#'+projectIteratorId).append(dataReplaceAndKeepOriginal(HTMLprojectDescription, value.description));
       count++;
     });
